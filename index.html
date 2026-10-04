@@ -224,6 +224,313 @@
   .polaroid.future { max-width: 520px; margin: 40px auto 0; }
   .polaroid.future img { aspect-ratio: auto; }
 
+  /* ---------- handwritten letter ---------- */
+  .hand-letter { max-width: 680px; margin: 50px auto 0; padding: 14px; background: #fbf8f1; border-radius: 3px; box-shadow: 0 40px 90px rgba(0,0,0,.55); transform: rotate(-.6deg); }
+  .hand-letter img { width: 100%; border-radius: 2px; }
+
+  /* ---------- letter ---------- */
+  .letter {
+    max-width: 640px; margin: 50px auto 0; background: var(--paper); color: var(--paper-ink);
+    padding: clamp(30px, 7vw, 60px) clamp(24px, 6vw, 56px); border-radius: 3px; position: relative;
+    box-shadow: 0 40px 90px rgba(0,0,0,.55);
+    background-image:
+      radial-gradient(120% 80% at 0% 0%, rgba(230,197,140,.18), transparent 60%),
+      radial-gradient(100% 70% at 100% 100%, rgba(231,163,166,.12), transparent 60%);
+  }
+  .letter p { font-family: var(--hand); font-size: clamp(1.4rem, 4.4vw, 1.65rem); line-height: 1.38; margin: 0 0 .85em; }
+  .letter .sign { text-align: right; margin-top: 1.4em; }
+  .letter .seal { position: absolute; top: -22px; right: 32px; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #c76a6f, #8e3a42); box-shadow: 0 6px 14px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; color: rgba(255,240,230,.85); font-size: 1.1rem; }
+
+  /* ---------- finale ---------- */
+  .finale { min-height: 100svh; display: flex; align-items: center; text-align: center; padding-bottom: 18vh; }
+  .finale h2 { font-size: clamp(2.8rem, 10vw, 5rem); }
+  .finale .lede { margin: 0 auto 28px; }
+  .ily { font-family: var(--serif); font-style: italic; font-size: clamp(2rem, 7vw, 3rem); color: var(--moon); margin: 50px 0 40px; text-shadow: 0 0 30px rgba(244,236,216,.35); }
+  .wish-btn { background: transparent; color: var(--gold); border: 1px solid rgba(230,197,140,.5); }
+  .wish-btn:hover { background: rgba(230,197,140,.08); }
+  .wish-msg { font-family: var(--serif); font-style: italic; font-size: 1.25rem; color: var(--muted); max-width: 26em; margin: 26px auto 0; min-height: 3em; opacity: 0; transition: opacity 2s ease; }
+  .wish-msg.in { opacity: 1; }
+  .foot { margin-top: 70px; font-size: .82rem; color: rgba(233,227,212,.38); }
+  .foot a { color: rgba(230,197,140,.7); text-decoration: none; border-bottom: 1px solid rgba(230,197,140,.25); }
+
+  @media (max-width: 520px) {
+    section { padding: 11vh 18px; }
+    .scrap { columns: 1; }
+    .polaroid, .note { max-width: 360px; margin-left: auto; margin-right: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"></div>
+<button id="phase" aria-label="Back to top" title="the moon fills up as you go">
+  <svg viewBox="-22 -22 44 44" width="38" height="38"><circle r="20" fill="rgba(244,236,216,.12)"/><path id="phasePath" fill="#f4ecd8" d=""/></svg>
+</button>
+
+<!-- ================= GATE ================= -->
+<div id="gate">
+  <div class="gate-inner" id="gateCard">
+    <div class="gate-moon"></div>
+    <h1 id="gateTitle">For Khushi only</h1>
+    <p id="gateSub">Same secret words as last time, Cutu.</p>
+    <div class="countdown" id="countdown" hidden></div>
+    <form class="gate-form" id="gateForm" autocomplete="off">
+      <input type="password" id="pw" placeholder="the secret…" aria-label="password" />
+      <button class="btn" type="submit" id="gateBtn">Open</button>
+    </form>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">who loves whom? (lowercase, no spaces)</div>
+  </div>
+</div>
+
+<!-- ================= PAGE ================= -->
+<main id="main">
+
+  <!-- opening -->
+  <section class="hero" id="top">
+    <div class="big-moon"></div>
+    <p class="for fade-seq" style="animation-delay:1.6s">For my Moon</p>
+    <h1 class="fade-seq" style="animation-delay:2.6s">Happy 23rd Birthday, <span>Cutu.</span></h1>
+    <p class="gift fade-seq" style="animation-delay:4s">I wanted to give you something that couldn&rsquo;t fit inside a gift box. So I made you a little world instead.</p>
+    <div class="scroll-cue fade-seq" style="animation-delay:5.4s">scroll slowly</div>
+  </section>
+
+  <!-- 1. the day it became us -->
+  <section>
+    <div class="wrap">
+      <p class="eyebrow reveal">Chapter one</p>
+      <h2 class="reveal d1">The day it became <em>us</em></h2>
+      <div class="timeline">
+        <div class="tl reveal">
+          <div class="when">11 July 2026 &middot; LinkedIn</div>
+          <h3>Of all the places, LinkedIn</h3>
+          <p>No filmy meet-cute. Just a message on the most professional app in the world &mdash; and somehow the start of the least professional thing in my life.</p>
+        </div>
+        <div class="tl reveal">
+          <div class="when">20 July 2026</div>
+          <h3>&ldquo;Hellou miss taro&rdquo;</h3>
+          <p>I sent you a job link. You offered to teach me tarot. I offered to teach you anything in return. You said you&rsquo;d decide your guru dakshina later. I&rsquo;m still waiting to find out what it is.</p>
+        </div>
+        <div class="tl reveal">
+          <div class="when">Late July &ndash; August</div>
+          <h3>Every day, then every night</h3>
+          <p>Reels, stickers, &ldquo;free ho?&rdquo;, calls that started at midnight and ended with one of us asleep on the line. We stopped saying good night and just&hellip; fell asleep together.</p>
+        </div>
+        <div class="tl reveal">
+          <div class="when">7 August 2026</div>
+          <h3>&ldquo;If we were in a rom-com&hellip;&rdquo;</h3>
+          <p>I said this is the part where we pretend to dislike each other before falling in love. You said <i>&#10024;IF&#10024;</i>. I said abhi ke liye if, baaki screenplay dekhte hain. Well. Here we are.</p>
+        </div>
+        <div class="tl reveal">
+          <div class="when">18 August 2026</div>
+          <h3>&ldquo;Mujhe lagta hai hum past life me bhi mile hain&rdquo;</h3>
+          <p>I had 103.8 fever, you said &ldquo;aajao godi me&rdquo;, and that night we decided we&rsquo;d known each other long before this life. Maybe we came back to finish it.</p>
+        </div>
+        <div class="tl reveal">
+          <div class="when">22 August 2026 &middot; 2:00 AM</div>
+          <h3>You became mine. I became yours.</h3>
+          <p>The night before, at 11:11, you said &ldquo;aa jaooo abhiiii.&rdquo; A few hours later, it was us. Bas. That simple, and that big.</p>
+        </div>
+        <div class="tl reveal">
+          <div class="when">22 September 2026</div>
+          <h3>One month of us</h3>
+          <p>It didn&rsquo;t go exactly the way I&rsquo;d planned. But the only thing I really wanted that day was to celebrate us &mdash; and I still do. Ego ko hum dono ke beech nahi aane dena.</p>
+        </div>
+        <div class="tl full reveal">
+          <div class="when">5 October 2026</div>
+          <h3>You turn 23</h3>
+          <p>And I get to be here for it.</p>
+        </div>
+      </div>
+      <p class="counter reveal">It&rsquo;s been <b id="days">0</b> days, <b id="hours">0</b> hours and <b id="mins">0</b> minutes of us. Meter abhi bhi chal raha hai.</p>
+    </div>
+  </section>
+
+  <!-- 2. things I love -->
+  <section>
+    <div class="wrap">
+      <p class="eyebrow reveal">Chapter two</p>
+      <h2 class="reveal d1">Things I love about you<br /><em>(the real list)</em></h2>
+      <p class="lede reveal d2">Not &ldquo;you&rsquo;re beautiful, you&rsquo;re caring, you&rsquo;re amazing.&rdquo; You are, obviously. But these are the things that are only you.</p>
+      <div class="loves" id="loves"></div>
+    </div>
+  </section>
+
+  <!-- 3. little things -->
+  <section>
+    <div class="scrap-wrap">
+      <div class="wrap" style="margin:0 auto">
+        <p class="eyebrow reveal">Chapter three</p>
+        <h2 class="reveal d1">The little things</h2>
+        <p class="lede reveal d2">You probably don&rsquo;t even realise I remember these.</p>
+      </div>
+      <div class="scrap" id="scrap"></div>
+    </div>
+  </section>
+
+  <!-- 4. distance -->
+  <section class="distance">
+    <div class="wrap">
+      <p class="eyebrow reveal">Chapter four</p>
+      <h2 class="reveal d1">Different cities.<br /><em>Same moon. Same us.</em></h2>
+      <div class="cities reveal d2" aria-hidden="true">
+        <span class="dot"></span>
+        <div class="arc"><svg viewBox="0 0 300 70" preserveAspectRatio="none"><path d="M0 65 Q150 -40 300 65" /></svg></div>
+        <span class="dot"></span>
+      </div>
+      <p class="tonight reveal d2" id="tonight"></p>
+      <p class="lede reveal" style="margin:0 auto">&ldquo;Mereko paas hi rakhna humesha.&rdquo; I heard you. I&rsquo;m keeping that one.</p>
+      <p class="lede reveal" style="margin:22px auto 0">I don&rsquo;t want our story to be made only of calls and screens. I want the ordinary things too.</p>
+      <ul class="ordinary" id="ordinary"></ul>
+      <p class="lede reveal" style="margin:44px auto 0">The distance is a phase. It&rsquo;s not our story.</p>
+    </div>
+  </section>
+
+  <!-- someday -->
+  <section class="someday" id="someday">
+    <div class="wrap" style="text-align:center">
+      <p class="eyebrow reveal">Someday</p>
+      <h2 class="reveal d1">Where I want <em>this</em> to go</h2>
+      <figure class="polaroid future reveal" style="--r:-1.5deg;--t:2deg;--ar:auto" data-src="photos/future.jpeg" data-cap="someday, us">
+        <span class="tape"></span><img src="photos/future.jpeg" alt="A picture of us someday, with our family" loading="lazy" /><figcaption class="cap">someday, us</figcaption>
+      </figure>
+      <p class="lede reveal" style="margin:36px auto 0">You once asked what our baby would look like. I&rsquo;d already made this, and was saving it to show you. One day I want this to be a real photo, not a picture of a dream.</p>
+      <p class="lede reveal" style="margin:22px auto 0">And you told me &mdash; &ldquo;Maine Payal Hai Chhankai&rdquo; is the song you&rsquo;ll dance to at our wedding. When we&rsquo;re 60, we&rsquo;ll watch that video and you&rsquo;ll cry and I&rsquo;ll pick you up anyway. Deal.</p>
+    </div>
+  </section>
+
+  <!-- 5. what you taught me -->
+  <section>
+    <div class="wrap">
+      <p class="eyebrow reveal">Chapter five</p>
+      <h2 class="reveal d1">What you taught me</h2>
+      <p class="lede reveal d2">I used to think love was mostly the thing I feel. You showed me it&rsquo;s also the things I do with that feeling.</p>
+      <div class="verbs reveal d3">
+        <span>noticing,</span><span>considering,</span><span>listening,</span><span>remembering,</span><span>saying it out loud,</span><span>showing it,</span><span>making you feel chosen.</span>
+      </div>
+      <p class="quote reveal">Intention isn&rsquo;t enough if the impact hurts the person you love. I learnt that from you, and I&rsquo;m grateful, even for the hard ways I learnt it.</p>
+      <p class="lede reveal">And one more thing &mdash; my words are sometimes fewer than what I feel. &ldquo;Ekdum meri lag rahi hai&rdquo; was my whole paragraph. But you shouldn&rsquo;t have to translate me. So here, more words.</p>
+    </div>
+  </section>
+
+  <!-- 6. promise -->
+  <section class="promise">
+    <div class="wrap">
+      <p class="eyebrow reveal">Chapter six</p>
+      <p class="big reveal d1">I can&rsquo;t promise we&rsquo;ll never have difficult days. I can promise that I want to keep learning how to love you better <em>through</em> them.</p>
+      <p class="big reveal d2">I want a love that feels like <em>peace</em>, not a test we have to keep passing.</p>
+      <p class="big reveal d3">Same team, jaan. Always.</p>
+    </div>
+  </section>
+
+  <!-- 7. letter -->
+  <section>
+    <div class="wrap" style="text-align:center">
+      <p class="eyebrow reveal">And finally</p>
+      <h2 class="reveal d1">A letter, <em>for you</em></h2>
+      <p class="lede reveal d2" style="margin:0 auto">Some things shouldn&rsquo;t be typed. So I wrote this one by hand, for you &mdash; and I&rsquo;ve sent you the pages.</p>
+      <p class="lede reveal d3" style="margin:22px auto 0">Go read them slowly, Cutu. Then come back here. I&rsquo;ll wait.</p>
+    </div>
+  </section>
+
+  <!-- finale -->
+  <section class="finale">
+    <div class="wrap">
+      <h2 class="reveal">Happy 23rd,<br /><em>my Moon.</em></h2>
+      <p class="lede reveal d1">If I could give you one thing this year, it would be the feeling of being deeply, genuinely, endlessly chosen.</p>
+      <p class="lede reveal d2">I don&rsquo;t want you to spend your life wondering whether you are enough for me. I want the way I love you to make you feel that you are.</p>
+      <p class="ily reveal d3">I love you, Khushi.</p>
+      <button class="btn wish-btn reveal d4" id="wishBtn" type="button">Make a wish, Cutu</button>
+      <p class="wish-msg" id="wishMsg">Whatever you just wished for &mdash; I hope I get to be standing right next to you when it comes true.</p>
+      <p class="foot">made slowly, with a lot of love, by your Kartik &middot; <a href="onemonth.html">our first month &rarr;</a></p>
+    </div>
+  </section>
+</main>
+
+<div id="lightbox" role="dialog" aria-modal="true"><figure><img alt="" id="lbImg" /><figcaption id="lbCap"></figcaption></figure></div>
+
+<script>
+/* =========================================================================
+   EDIT HERE — content lives in these lists.
+   Photos: put files in the photos/ folder and add a line to PHOTOS.
+   ========================================================================= */
+
+const PHOTOS = [
+  // add more: { src: 'photos/yourfile.jpg', cap: 'caption' },
+  { src: 'photos/our_call_ss.jpeg', cap: 'falling asleep on call, again', ar: '9/16' },
+  { src: 'one.jpeg', cap: 'same team. always.', ar: '4/3' },
+  { src: 'photos/WhatsApp%20Image%202026-10-04%20at%2011.33.27%20PM.jpeg', cap: 'a K, right in the middle', ar: '3/4' },
+  { src: 'two.jpeg', cap: 'your mehndi', ar: '3/4' },
+];
+
+const LITTLE_THINGS = [
+  { t: 'Your stickers.', s: 'Arre yaar, your stickers man. You ran out once and refused to talk to me until I sent more.' },
+  { t: 'You call me &ldquo;Indian uncle&rdquo; whenever I go low-energy.', s: '(fair. working on it.)' },
+  { t: 'You&rsquo;re 23 now. I&rsquo;m 26.25 &mdash; not 26.5.', s: 'I will keep correcting you. You will keep saying it.' },
+  { t: '&ldquo;Sukhi haddi.&rdquo; &ldquo;Haddiyon ka pinjar.&rdquo; &ldquo;Sukhi haddi pro max.&rdquo;', s: 'Premium quality, though.' },
+  { t: 'You decided I&rsquo;m your Marshmallow.', s: '&ldquo;Mai miss kr rhi hun Marshmallow ko.&rdquo; I read that one more than once.' },
+  { t: 'Typo queen.', s: '&ldquo;Aspje saath rahungi.&rdquo; Koi baat nahi &mdash; main tere andar ki baat samajh jata hoon.' },
+  { t: 'You reminding me to eat. Every. Single. Day.', s: '&ldquo;2 mt bajana din ke.&rdquo; Even before leaving for your trip, you left instructions.' },
+  { t: 'You reminded me about Sawan ka somvaar.', s: 'And I went to mandir, &ldquo;last time jaise.&rdquo;' },
+  { t: 'Loud horns and too much noise make you anxious.', s: 'You zone out, go quiet. I notice. I just do.' },
+  { t: 'Your Venus is vargottam &mdash; Libra in D1 and D9.', s: 'Which explains the fashion sense. Your words, not mine. (Also mine.)' },
+  { t: 'You and your sister vs. papa, hiding chips and Maggie in code language.', s: 'Papa cracked the code. You planned ramen. Unki hi aulaad.' },
+  { t: 'At Katyayani Devi you offered a chunni and mala &mdash; for both of us.', s: '&ldquo;Mere aur aapke taraf se.&rdquo; I haven&rsquo;t stopped thinking about that.' },
+  { t: 'You guessed I was searching Snapchat for a sticker. I was.', s: '&ldquo;Humara soul connection hai, mano na mano.&rdquo; Maan liya.' },
+  { t: 'You want two shops someday, and maybe stand-up.', s: 'Kholna dono. I&rsquo;ll be in the front row, and I&rsquo;ll handle you after.' },
+];
+
+const LOVES = [
+  ['The way you get excited', 'Like it&rsquo;s the first time anything good has ever happened to anyone. It makes me want to keep finding things to make you excited about.'],
+  ['Your &ldquo;hmmm&hellip;&rdquo;', 'It has about nine different meanings and I&rsquo;m slowly learning all of them.'],
+  ['Your tarot', 'Nine cards, then &ldquo;okay one more spread.&rdquo; You read my chart better than I do &mdash; seventh house full of planets, apparently. Partner bahut important hai. You were right.'],
+  ['Reels instead of words', 'You send a reel instead of saying the thing. I&rsquo;ve basically become a professional reel translator, and I love the job.'],
+  ['Laughing at your own jokes', '&ldquo;Soch rhi hun ki mai kitni funny hun.&rdquo; You are. And your laugh at your own joke is the best part of it.'],
+  ['How you take care of me', 'Fever, food, sleep, mandir, nails, jeans that need washing &mdash; you notice all of it. You said you&rsquo;d make food on my long days and feed me yourself. Nobody has ever said that to me.'],
+  ['Your sleepy voice', 'No explanation needed.'],
+  ['How you remember everything', 'Every tiny detail. And you&rsquo;ve made me want to be the same for you.'],
+  ['Soft one minute, pagal the next', 'And completely yourself in both. I want both versions, always.'],
+  ['Your ambition', 'Every application, every cold email, every time you keep going on a day it feels heavy. I see it, and I&rsquo;m proud of you.'],
+  ['How much you feel', 'You feel things fully and you don&rsquo;t pretend you don&rsquo;t. That depth is rare.'],
+  ['How you want to be close', 'Even from far away, you find a way to stay next to me.'],
+  ['Ordinary conversations', 'You make a completely normal chat feel like the best part of my day. Most days, it is.'],
+];
+
+const ORDINARY = ['holding hands with ice cream', 'you holding my bicep while we walk', 'my hand on your waist in traffic', 'temple together, like we promised', 'you feeding me after a long day', 'head in your lap', 'you singing &ldquo;meri saanson mein tu hai basa&rdquo; to me', 'fighting and making up in the same room', 'falling asleep next to you, not on a call', 'meeting every single day, no skips'];
+
+/* ========================================================================= */
+(function () {
+  'use strict';
+  const $ = (s) => document.getElementById(s);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- render content ---------- */
+  $('loves').innerHTML = LOVES.map(([k, p], i) =>
+    `<div class="love reveal d${i % 3}"><div class="k">${k}</div><p>${p}</p></div>`).join('');
+
+  const rot = () => (Math.random() * 6 - 3).toFixed(1) + 'deg';
+  const items = [];
+  const n = Math.max(PHOTOS.length, LITTLE_THINGS.length);
+  for (let i = 0; i < n; i++) {
+    if (PHOTOS[i]) {
+      const p = PHOTOS[i];
+      items.push(`<figure class="polaroid reveal" style="--r:${rot()};--t:${rot()}${p.ar ? ';--ar:' + p.ar : ''}" data-src="${p.src}" data-cap="${p.cap || ''}">
+        <span class="tape"></span><img src="${p.src}" alt="${(p.cap || '').replace(/<[^>]+>/g, '')}" loading="lazy" /><figcaption class="cap">${p.cap || ''}</figcaption></figure>`);
+    }
+    if (LITTLE_THINGS[i]) {
+      const t = LITTLE_THINGS[i];
+      items.push(`<div class="note reveal" style="--r:${rot()}">${t.t}${t.s ? `<small>${t.s}</small>` : ''}</div>`);
+    }
+  }
+  $('scrap').innerHTML = items.join('');
+
+  $('ordinary').innerHTML = ORDINARY.map((o, i) => `<li class="reveal" style="transition-delay:${i * 0.12}s">${o}</li>`).join('');
+
   /* ---------- lightbox ---------- */
   const lb = $('lightbox');
   document.addEventListener('click', (e) => {
