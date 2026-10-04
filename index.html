@@ -284,7 +284,7 @@
       <button class="btn" type="submit" id="gateBtn">Open</button>
     </form>
     <div class="gate-err" id="gateErr"></div>
-    <div class="gate-hint">who loves whom? (lowercase, no spaces)</div>
+    <div class="gate-hint">two letters. it&rsquo;s what we are.</div>
   </div>
 </div>
 
@@ -656,7 +656,7 @@ const ORDINARY = ['holding hands with ice cream', 'you holding my bicep while we
 
   /* ---------- gate ---------- */
   // SECURITY_NOTE: cosmetic gate only — see comment at top of file.
-  const SECRET = 'kartikloveskhushi';
+  const SECRET = 'us';
   const BIRTHDAY = new Date(2026, 9, 5, 0, 0, 0); // midnight, 5 Oct (her device's local time)
   const preview = /[?&]preview\b/.test(location.search);
   const gate = $('gate'), form = $('gateForm'), pw = $('pw'), err = $('gateErr');
