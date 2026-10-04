@@ -229,6 +229,16 @@
   .hand-letter img { width: 100%; border-radius: 2px; }
 
   /* ---------- letter ---------- */
+  .lpages { display: flex; flex-direction: column; align-items: center; gap: 34px; margin: 44px 0 0; }
+  .lpage { margin: 0; width: min(100%, 460px); padding: 8px; background: #f4efe3; border-radius: 3px; box-shadow: 0 18px 40px rgba(0,0,0,.45); transform: rotate(var(--r, 0deg)); cursor: zoom-in; transition: transform .4s; }
+  .lpage:hover { transform: rotate(0deg) scale(1.02); }
+  .lpage img { display: block; width: 100%; height: auto; border-radius: 1px; }
+  .wishes { margin-top: 110px; }
+  .wishes h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.8rem, 6vw, 2.6rem); line-height: 1.2; margin: 0 0 30px; }
+  .wishes h3 em { color: var(--gold); }
+  .stars23 { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 14px; max-width: 420px; margin: 0 auto; }
+  .stars23 span { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: .72rem; color: var(--gold); border: 1px solid rgba(230,197,140,.35); animation: twinkle 3.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+  @keyframes twinkle { 0%, 100% { box-shadow: 0 0 0 rgba(230,197,140,0); background: transparent; } 50% { box-shadow: 0 0 16px rgba(230,197,140,.6); background: rgba(230,197,140,.12); } }
   .letter {
     max-width: 640px; margin: 50px auto 0; background: var(--paper); color: var(--paper-ink);
     padding: clamp(30px, 7vw, 60px) clamp(24px, 6vw, 56px); border-radius: 3px; position: relative;
@@ -438,8 +448,23 @@
     <div class="wrap" style="text-align:center">
       <p class="eyebrow reveal">And finally</p>
       <h2 class="reveal d1">A letter, <em>for you</em></h2>
-      <p class="lede reveal d2" style="margin:0 auto">Some things shouldn&rsquo;t be typed. So I wrote this one by hand, for you &mdash; and I&rsquo;ve sent you the pages.</p>
-      <p class="lede reveal d3" style="margin:22px auto 0">Go read them slowly, Cutu. Then come back here. I&rsquo;ll wait.</p>
+      <p class="lede reveal d2" style="margin:0 auto">Some things shouldn&rsquo;t be typed. So I wrote this one by hand &mdash; five pages, just for you.</p>
+      <p class="lede reveal d3" style="margin:22px auto 0">Read them slowly, Cutu. (Tap a page to see it bigger.)</p>
+      <div class="lpages">
+      <figure class="lpage reveal" style="--r:-1deg" data-src="photos/ll/1.jpeg" data-cap="page 1 of 5"><img src="photos/ll/1.jpeg" alt="Handwritten letter, page 1 of 5" loading="lazy" /></figure>
+      <figure class="lpage reveal" style="--r:1.2deg" data-src="photos/ll/2.jpeg" data-cap="page 2 of 5"><img src="photos/ll/2.jpeg" alt="Handwritten letter, page 2 of 5" loading="lazy" /></figure>
+      <figure class="lpage reveal" style="--r:-0.8deg" data-src="photos/ll/3.jpeg" data-cap="page 3 of 5"><img src="photos/ll/3.jpeg" alt="Handwritten letter, page 3 of 5" loading="lazy" /></figure>
+      <figure class="lpage reveal" style="--r:1deg" data-src="photos/ll/4.jpeg" data-cap="page 4 of 5"><img src="photos/ll/4.jpeg" alt="Handwritten letter, page 4 of 5" loading="lazy" /></figure>
+      <figure class="lpage reveal" style="--r:-1.2deg" data-src="photos/ll/5.jpeg" data-cap="page 5 of 5"><img src="photos/ll/5.jpeg" alt="Handwritten letter, page 5 of 5" loading="lazy" /></figure>
+      </div>
+
+      <div class="wishes">
+        <p class="eyebrow reveal">One more thing</p>
+        <h3 class="reveal d1">Twenty-three wishes,<br /><em>one for every year of you</em></h3>
+        <div class="stars23 reveal d2" id="stars23" aria-hidden="true"></div>
+        <p class="lede reveal" style="margin:30px auto 0">You turned twenty-three, so I wrote you twenty-three wishes &mdash; each one straight from my warm heart.</p>
+        <p class="lede reveal" style="margin:18px auto 0">I&rsquo;m not putting them here. I&rsquo;ll tell you every one of them myself, on our call, in my own voice. Keep your phone close tonight.</p>
+      </div>
     </div>
   </section>
 
@@ -538,12 +563,14 @@ const ORDINARY = ['holding hands with ice cream', 'you holding my bicep while we
   }
   $('scrap').innerHTML = items.join('');
 
+  $('stars23').innerHTML = Array.from({ length: 23 }, (_, i) => `<span style="--d:${((i * 0.37) % 3.2).toFixed(2)}s">${i + 1}</span>`).join('');
+
   $('ordinary').innerHTML = ORDINARY.map((o, i) => `<li class="reveal" style="transition-delay:${i * 0.12}s">${o}</li>`).join('');
 
   /* ---------- lightbox ---------- */
   const lb = $('lightbox');
   document.addEventListener('click', (e) => {
-    const f = e.target.closest('.polaroid');
+    const f = e.target.closest('.polaroid, .lpage');
     if (!f) return;
     $('lbImg').src = f.dataset.src;
     $('lbCap').innerHTML = f.dataset.cap;
